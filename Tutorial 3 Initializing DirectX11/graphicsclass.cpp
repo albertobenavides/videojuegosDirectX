@@ -61,24 +61,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 		return false;
 
 	m_TextureShader = new TextureShaderClass;
-	if (!m_TextureShader)
-		return false;
-
-	result = m_TextureShader->Initialize(m_D3D->GetDevice(), hwnd);
-	if (!result)
-	{
-		MessageBox(hwnd, L"Could not initiazlize the texture shader object.", L"Error", MB_OK);
-	}
+	m_TextureShader->Initialize(m_D3D->GetDevice(), hwnd);
 
 	m_Texture1 = new TextureClass;
 	if(!m_Texture1)
 		return false;
 
-	result = m_Texture1->Initialize(m_D3D->GetDevice(), L"caca.jpg");
-
+	m_Texture1->Initialize(m_D3D->GetDevice(), L"caca.jpg");
 	m_Texture2 = new TextureClass;
-	if (!m_Texture2)
-		return false;
 
 	result = m_Texture2->Initialize(m_D3D->GetDevice(), L"puzzle.jpg");
 
@@ -93,11 +83,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	float radius = 1;
 	D3DXVECTOR3 positionSphere = D3DXVECTOR3(0, 0, 0);
 	D3DXVECTOR4 colorSphere = D3DXVECTOR4(1, 1, 0, 1);
-	result = m_Sphere->Initialize(m_D3D->GetDevice(), positionSphere, stacks, slices, radius, colorSphere);
-	if (!result){
-		MessageBox(hwnd, L"Could not initialize the sphere object.", L"Error", MB_OK);
-		return false;
-	}
+	m_Sphere->Initialize(m_D3D->GetDevice(), positionSphere, stacks, slices, radius, colorSphere);
 
 	result = m_Cube->Initialize(m_D3D->GetDevice());
 	if (!result){
@@ -111,14 +97,10 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 		return false;
 
 	//Initialize the color shader object
-	result = m_ColorShader->Initialize(m_D3D->GetDevice(),hwnd);
-	if(!result){
-		MessageBox(hwnd,L"Could not initialize the color shader object.", L"Error",MB_OK);
-		return false;
-	}
+	m_ColorShader->Initialize(m_D3D->GetDevice(),hwnd);
 
 	m_Quad = new QuadClass;
-	m_Quad->Initialize(m_D3D->GetDevice(), 0, 1);
+	m_Quad->Initialize(m_D3D->GetDevice(), 0, 3);
 
 	return  true;
 }
