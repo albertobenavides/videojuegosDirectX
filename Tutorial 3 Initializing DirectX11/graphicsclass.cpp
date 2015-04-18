@@ -10,6 +10,7 @@ GraphicsClass::GraphicsClass(){
 	m_Camera = 0;
 	m_Sphere = 0;
 	m_Cube = 0;
+	m_Quad = 0;
 	m_ColorShader = 0;
 	m_Texture1 = 0;
 	m_Texture2 = 0;
@@ -87,7 +88,6 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 		return false;
 	}
 
-	//Initialize the sphere object
 	int stacks = 36;
 	int slices = 36;
 	float radius = 1;
@@ -116,6 +116,9 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 		MessageBox(hwnd,L"Could not initialize the color shader object.", L"Error",MB_OK);
 		return false;
 	}
+
+	m_Quad = new QuadClass;
+	m_Quad->Initialize(m_D3D->GetDevice(), 0, 1);
 
 	return  true;
 }
@@ -159,6 +162,13 @@ void GraphicsClass::Shutdown(){
 		m_D3D = 0;
 	}
 
+	if (m_Quad)
+	{
+		m_Quad->Shutdown();
+		delete m_Quad;
+		m_Quad = 0;
+	}
+
 	return;
 }
 
@@ -177,7 +187,7 @@ bool GraphicsClass::Render(){
 	
 	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix, RotationZ;
 	bool result;
-	rotation += .00001f;
+	rotation += .001f;
 
 	m_D3D->BeginScene(0.0f,0.0f,0.0f,1.0f);
 
@@ -196,12 +206,18 @@ bool GraphicsClass::Render(){
 
 	m_Cube->SetScale(D3DXVECTOR3(1, 1, 1));
 	m_Cube->SetPosition(D3DXVECTOR3(0, 2, 0));
-	m_Cube->SetRotation(D3DXVECTOR3(0, rotation, 0));
+	m_Cube->SetRotation(D3DXVECTOR3(0, 0, 0));
 	m_Cube->Render(m_D3D->GetDeviceContext());
 
 	result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_Texture1->GetTexture());
 	if (!result)
 		return false;
+
+	// Front
+	m_Quad->SetScale(D3DXVECTOR3(1, 1, 1));
+	m_Quad->SetPosition(D3DXVECTOR3(0, -2, 0));
+	m_Quad->Render(m_D3D->GetDeviceContext());
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Quad->GetIndexCount(), m_Quad->GetMatrix(), viewMatrix, projectionMatrix, m_Texture1->GetTexture());
 
 	//Present the rendered scene to the sceen
 	m_D3D->EndScene();

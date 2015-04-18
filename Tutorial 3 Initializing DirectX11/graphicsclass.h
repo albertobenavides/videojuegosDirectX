@@ -15,6 +15,7 @@
 #include "colorshaderclass.h"
 #include "textureshaderclass.h"
 #include "textureclass.h"
+#include "QuadClass.h"
 
 ///////////
 //GLOBALS//
@@ -47,6 +48,7 @@ private:
 	cameraclass* m_Camera;
 	SphereClass* m_Sphere;
 	CubeClass* m_Cube;
+	QuadClass* m_Quad;
 	ColorShaderClass* m_ColorShader;
 	TextureShaderClass* m_TextureShader;
 	TextureClass* m_Texture1;
