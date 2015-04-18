@@ -82,10 +82,10 @@ bool QuadClass::InitializeBuffers(ID3D11Device* device){
 	vertices[1].position = D3DXVECTOR3(1, 1, 0);
 	vertices[2].position = D3DXVECTOR3(-1, -1, 0);
 	vertices[3].position = D3DXVECTOR3(1, -1, 0);
-	vertices[0].texture = D3DXVECTOR2(u, u);
-	vertices[1].texture = D3DXVECTOR2(v, u);
-	vertices[2].texture = D3DXVECTOR2(u, v);
-	vertices[3].texture = D3DXVECTOR2(v, v);
+	vertices[0].texture = D3DXVECTOR2(0, 0);
+	vertices[1].texture = D3DXVECTOR2(u, 0);
+	vertices[2].texture = D3DXVECTOR2(0, v);
+	vertices[3].texture = D3DXVECTOR2(u, v);
 
 	//Front
 	indices[0] = 0;

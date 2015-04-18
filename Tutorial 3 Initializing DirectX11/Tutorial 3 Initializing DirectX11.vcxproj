@@ -107,8 +107,10 @@
     <ClInclude Include="textureshaderclass.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="blue.ps" />
     <None Include="color.ps" />
     <None Include="color.vs" />
+    <None Include="grayscale.ps" />
     <None Include="texture.ps" />
     <None Include="texture.vs" />
   </ItemGroup>

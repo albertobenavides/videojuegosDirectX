@@ -49,10 +49,17 @@ private:
 	SphereClass* m_Sphere;
 	CubeClass* m_Cube;
 	QuadClass* m_Quad;
+	QuadClass* m_AnuncioQuad;
 	ColorShaderClass* m_ColorShader;
 	TextureShaderClass* m_TextureShader;
+	TextureShaderClass* m_BlueShader;
+	TextureShaderClass* m_GrayscaleShader;
 	TextureClass* m_Texture1;
 	TextureClass* m_Texture2;
+	TextureClass* m_MetalTexture;
+	TextureClass* m_AnuncioTexture;
+	TextureClass* m_Anuncio2Texture;
+	TextureClass* m_Anuncio3Texture;
 };
 
 #endif

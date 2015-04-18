@@ -17,13 +17,13 @@ TextureShaderClass::TextureShaderClass(const TextureShaderClass &other){
 TextureShaderClass::~TextureShaderClass(){
 }
 
-bool TextureShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
+bool TextureShaderClass::Initialize(ID3D11Device* device, HWND hwnd, WCHAR* vertex, WCHAR* pixel)
 {
 	bool result;
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"texture.vs", L"texture.ps");
+	result = InitializeShader(device, hwnd, vertex, pixel);
 	if (!result)
 		return false;
 

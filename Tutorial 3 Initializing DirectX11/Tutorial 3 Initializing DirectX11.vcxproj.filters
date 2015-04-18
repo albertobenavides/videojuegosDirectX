@@ -106,5 +106,11 @@
     <None Include="texture.vs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="blue.ps">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="grayscale.ps">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
