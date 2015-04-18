@@ -49,7 +49,8 @@ private:
 	CubeClass* m_Cube;
 	ColorShaderClass* m_ColorShader;
 	TextureShaderClass* m_TextureShader;
-	TextureClass*m_Texture1;
+	TextureClass* m_Texture1;
+	TextureClass* m_Texture2;
 };
 
 #endif

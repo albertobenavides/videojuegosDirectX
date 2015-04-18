@@ -12,6 +12,7 @@ GraphicsClass::GraphicsClass(){
 	m_Cube = 0;
 	m_ColorShader = 0;
 	m_Texture1 = 0;
+	m_Texture2 = 0;
 	m_TextureShader = 0;
 }
 
@@ -72,7 +73,13 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	if(!m_Texture1)
 		return false;
 
-	result = m_Texture1->Initialize(m_D3D->GetDevice(), L"puzzle2_1000.jpg");
+	result = m_Texture1->Initialize(m_D3D->GetDevice(), L"caca.jpg");
+
+	m_Texture2 = new TextureClass;
+	if (!m_Texture2)
+		return false;
+
+	result = m_Texture2->Initialize(m_D3D->GetDevice(), L"puzzle.jpg");
 
 	if (!result)
 	{
@@ -170,7 +177,7 @@ bool GraphicsClass::Render(){
 	
 	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix, RotationZ;
 	bool result;
-	rotation += .001f;
+	rotation += .00001f;
 
 	m_D3D->BeginScene(0.0f,0.0f,0.0f,1.0f);
 
@@ -183,7 +190,7 @@ bool GraphicsClass::Render(){
 	m_Sphere->SetScale(D3DXVECTOR3(1, 1, 1));
 	m_Sphere->Render(m_D3D->GetDeviceContext());
 	
-	result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Sphere->GetIndexCount(), m_Sphere->GetMatrix(), viewMatrix, projectionMatrix, m_Texture1->GetTexture());
+	result = m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Sphere->GetIndexCount(), m_Sphere->GetMatrix(), viewMatrix, projectionMatrix, m_Texture2->GetTexture());
 	if (!result)
 		return false;
 

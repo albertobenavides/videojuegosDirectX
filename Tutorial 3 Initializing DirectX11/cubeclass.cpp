@@ -79,9 +79,9 @@ bool CubeClass::InitializeBuffers(ID3D11Device* device){
 	vertices[2].position = D3DXVECTOR3(1, -1, -1);
 	vertices[3].position = D3DXVECTOR3(1, 1, -1);
 	vertices[0].texture = D3DXVECTOR2(0,0);
-	vertices[1].texture = D3DXVECTOR2(0,3);
-	vertices[2].texture = D3DXVECTOR2(3,0);
-	vertices[3].texture = D3DXVECTOR2(3,3);
+	vertices[1].texture = D3DXVECTOR2(0,1);
+	vertices[2].texture = D3DXVECTOR2(1,0);
+	vertices[3].texture = D3DXVECTOR2(1,1);
 	// Right
 	vertices[4].position = D3DXVECTOR3(1, -1, -1);
 	vertices[5].position = D3DXVECTOR3(1, 1, -1);
