@@ -9,6 +9,7 @@
 /////////////
 #include <D3D11.h>
 #include <D3DX10math.h>
+#include "TextureClass.h"
 
 /////////////////////
 // Class name: ModelClass
@@ -18,6 +19,7 @@ private:
 	struct VertexType{
 		D3DXVECTOR3 position;
 		D3DXVECTOR2 texture;
+		D3DXVECTOR3 normal;
 	};
 
 public:
@@ -26,6 +28,7 @@ public:
 	~CubeClass();
 
 	bool Initialize(ID3D11Device*);
+	bool Initialize(ID3D11Device*, WCHAR*, float, float);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
@@ -38,16 +41,22 @@ public:
 	void SetPosition(D3DXVECTOR3);
 	void SetRotation(D3DXVECTOR3);
 	void SetScale(D3DXVECTOR3);
+	ID3D11ShaderResourceView* GetTexture();
 
 private:
 	bool InitializeBuffers(ID3D11Device*);
 	void ShutdownBuffers();
 	void RenderBuffers(ID3D11DeviceContext*);
 
-private:
+	bool LoadTexture(ID3D11Device*, WCHAR*);
+	void ReleaseTexture();
+
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
+	TextureClass* m_Texture;
 	D3DXVECTOR3 m_Position, m_Rotation, m_Scale;
+
+	float u, v;
 };
 
 #endif

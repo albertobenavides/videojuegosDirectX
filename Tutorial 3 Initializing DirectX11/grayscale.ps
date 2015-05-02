@@ -13,13 +13,7 @@ float4 TexturePixelShader(PixelInputType input) : SV_TARGET
 
 	textureColor = shaderTexture.Sample(SampleType, input.tex);
 
-	// Escala de grises
-	//textureColor = ( textureColor.x + textureColor.y + textureColor.z) / 3; // Toda la flotante4 se iguala a un promedio de dos colores.
-
-	// Todo rojo
-	// textureColor.y = textureColor.z = 0;
-
-	textureColor.w = 1;
+	textureColor = ( textureColor.x + textureColor.y) / 2; // Toda la flotante4 se iguala a un promedio de dos colores.
 
 	return textureColor;
 };
