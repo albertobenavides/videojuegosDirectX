@@ -16,6 +16,8 @@
 #include "textureshaderclass.h"
 #include "textureclass.h"
 #include "QuadClass.h"
+#include "LightClass.h"
+#include "LightShaderClass.h"
 
 ///////////
 //GLOBALS//
@@ -60,6 +62,8 @@ private:
 	TextureClass* m_AnuncioTexture;
 	TextureClass* m_Anuncio2Texture;
 	TextureClass* m_Anuncio3Texture;
+	LightShaderClass* m_LightShader;
+	LightClass* m_Light;
 };
 
 #endif

@@ -24,44 +24,30 @@ GraphicsClass::GraphicsClass(){
 	m_GrayscaleShader = 0;
 }
 
-GraphicsClass::GraphicsClass(const GraphicsClass& other){
-}
+GraphicsClass::GraphicsClass(const GraphicsClass& other){}
 
-GraphicsClass::~GraphicsClass(){
-}
+GraphicsClass::~GraphicsClass(){}
 
 bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 
-	bool result;
-
-
-	//Create the Direct3D Object
+	//////////////
+	// Direct3D //
+	//////////////
 	m_D3D = new D3DClass;
-	if(!m_D3D)
-		return false;
-
-	//Initialize the Direct3D object
 	m_D3D->Initialize(screenWidth,screenHeight,VSYNC_ENABLED,hwnd,FULL_SCREEN,SCREEN_DEPTH,SCREEN_NEAR);
 
-	//Create the camera object
+	////////////
+	// Camera //
+	////////////
 	m_Camera = new cameraclass;
-
-	//Set the initial position of the camera
 	m_Camera->SetPosition(0.0f,1.0f,-10.0f);
+	
+	/////////////
+	// Shaders //
+	/////////////
+	m_ColorShader = new ColorShaderClass;
+	m_ColorShader->Initialize(m_D3D->GetDevice(), hwnd);
 
-	//Create the sphere object
-	m_Sphere = new SphereClass;
-	int stacks = 36;
-	int slices = 36;
-	float radius = 1;
-	D3DXVECTOR3 positionSphere = D3DXVECTOR3(0, 0, 0);
-	D3DXVECTOR4 colorSphere = D3DXVECTOR4(1, 1, 0, 1);
-	m_Sphere->Initialize(m_D3D->GetDevice(), positionSphere, stacks, slices, radius, colorSphere);
-
-	m_Cube = new CubeClass;
-	m_Cube->Initialize(m_D3D->GetDevice());
-
-	// Shaders
 	m_TextureShader = new TextureShaderClass;
 	m_TextureShader->Initialize(m_D3D->GetDevice(), hwnd, L"texture.vs", L"texture.ps");
 
@@ -71,8 +57,12 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	m_GrayscaleShader = new TextureShaderClass;
 	m_GrayscaleShader->Initialize(m_D3D->GetDevice(), hwnd, L"texture.vs", L"grayscale.ps");
 
-	// Textures
+	m_LightShader = new LightShaderClass;
+	m_LightShader->Initialize(m_D3D->GetDevice(), hwnd);
 
+	//////////////
+	// Textures //
+	//////////////
 	m_Texture1 = new TextureClass;
 	m_Texture1->Initialize(m_D3D->GetDevice(), L"zacate.jpg");
 
@@ -90,13 +80,30 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 
 	m_Anuncio3Texture = new TextureClass;
 	m_Anuncio3Texture->Initialize(m_D3D->GetDevice(), L"anuncio3.jpg");
-
-	//Create the color shader object
-	m_ColorShader = new ColorShaderClass;
 	
+	////////////
+	// Lights //
+	////////////
+	m_Light = new LightClass;
+	m_Light->SetAmbientColor(0.15f, 0.15f, 0.15f, 1.0f);
+	m_Light->SetDiffuseColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetDirection(0.0f, 0.0f, 1.0f);
+	m_Light->SetSpecularColor(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Light->SetSpecularPower(32.0f);
 
-	//Initialize the color shader object
-	m_ColorShader->Initialize(m_D3D->GetDevice(),hwnd);
+	/////////////
+	// Objects //
+	/////////////
+	m_Sphere = new SphereClass;
+	int stacks = 36;
+	int slices = 36;
+	float radius = 1;
+	D3DXVECTOR3 positionSphere = D3DXVECTOR3(0, 0, 0);
+	D3DXVECTOR4 colorSphere = D3DXVECTOR4(1, 1, 0, 1);
+	m_Sphere->Initialize(m_D3D->GetDevice(), positionSphere, stacks, slices, radius, colorSphere);
+
+	m_Cube = new CubeClass;
+	m_Cube->Initialize(m_D3D->GetDevice(), L"puzzle.jpg", 1, 7);
 
 	m_Quad = new QuadClass;
 	m_Quad->Initialize(m_D3D->GetDevice(), 10, 15);
@@ -107,9 +114,21 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	return  true;
 }
 
-void GraphicsClass::Shutdown(){
+void GraphicsClass::Shutdown()
+{
+	if (m_LightShader)
+	{
+		m_LightShader->Shutdown();
+		delete m_LightShader;
+		m_LightShader = 0;
+	}
 
-	// Release the color shader object.
+	//Release the light object
+	if (m_Light){
+		delete m_Light;
+		m_Light = 0;
+	}
+
 	if(m_ColorShader)
 	{
 		m_ColorShader->Shutdown();
@@ -156,8 +175,8 @@ void GraphicsClass::Shutdown(){
 	return;
 }
 
-bool GraphicsClass::Frame(){
-
+bool GraphicsClass::Frame()
+{
 	bool result;
 
 	//Render the graphics scene
@@ -170,7 +189,7 @@ bool GraphicsClass::Frame(){
 bool GraphicsClass::Render(){
 	
 	D3DXMATRIX viewMatrix, projectionMatrix, worldMatrix, RotationZ;
-	bool result;
+
 	rotation += .001f;
 
 	m_D3D->BeginScene(0.0f,0.0f,0.0f,1.0f);
@@ -193,7 +212,6 @@ bool GraphicsClass::Render(){
 	m_Sphere->Render(m_D3D->GetDeviceContext());
 	m_GrayscaleShader->Render(m_D3D->GetDeviceContext(), m_Sphere->GetIndexCount(), m_Sphere->GetMatrix(), viewMatrix, projectionMatrix, m_Texture2->GetTexture());
 
-
 	m_Sphere->SetScale(D3DXVECTOR3(1, 1, 1));
 	m_Sphere->SetPosition(D3DXVECTOR3(4, 4, 0));
 	m_Sphere->Render(m_D3D->GetDeviceContext());
@@ -205,14 +223,17 @@ bool GraphicsClass::Render(){
 	m_Cube->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_MetalTexture->GetTexture());
 
-	
 	m_Cube->SetPosition(D3DXVECTOR3(0, 0, -3));
 	m_Cube->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_MetalTexture->GetTexture());
 
+	m_Cube->SetScale(D3DXVECTOR3(0.1f, 2, 0.1f)); 
+	m_Cube->SetRotation(D3DXVECTOR3(0, rotation, 0));
 	m_Cube->SetPosition(D3DXVECTOR3(2.5f, 0, -3));
 	m_Cube->Render(m_D3D->GetDeviceContext());
-	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_MetalTexture->GetTexture());
+	m_LightShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix,
+		m_Cube->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
+		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 
 	m_AnuncioQuad->SetScale(D3DXVECTOR3(1, 0.5f, 1));
 	m_AnuncioQuad->SetPosition(D3DXVECTOR3(-2.5f, 2, -3.5f));
@@ -228,8 +249,6 @@ bool GraphicsClass::Render(){
 	m_AnuncioQuad->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_AnuncioQuad->GetIndexCount(), m_AnuncioQuad->GetMatrix(), viewMatrix, projectionMatrix, m_Anuncio3Texture->GetTexture());
 
-
-	//Present the rendered scene to the sceen
 	m_D3D->EndScene();
 	return true;
 }

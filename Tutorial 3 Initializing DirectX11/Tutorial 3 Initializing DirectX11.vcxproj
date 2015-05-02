@@ -84,6 +84,8 @@
     <ClCompile Include="D3dclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
+    <ClCompile Include="LightClass.cpp" />
+    <ClCompile Include="LightShaderClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="modelclass.cpp" />
     <ClCompile Include="QuadClass.cpp" />
@@ -99,6 +101,8 @@
     <ClInclude Include="D3dclass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
+    <ClInclude Include="LightClass.h" />
+    <ClInclude Include="LightShaderClass.h" />
     <ClInclude Include="modelclass.h" />
     <ClInclude Include="QuadClass.h" />
     <ClInclude Include="sphereclass.h" />
@@ -111,6 +115,8 @@
     <None Include="color.ps" />
     <None Include="color.vs" />
     <None Include="grayscale.ps" />
+    <None Include="light.ps" />
+    <None Include="light.vs" />
     <None Include="texture.ps" />
     <None Include="texture.vs" />
   </ItemGroup>

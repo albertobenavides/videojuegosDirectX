@@ -54,6 +54,12 @@
     <ClCompile Include="QuadClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LightClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightShaderClass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphicsclass.h">
@@ -92,6 +98,12 @@
     <ClInclude Include="QuadClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LightClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightShaderClass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.ps">
@@ -110,6 +122,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="grayscale.ps">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.ps">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="light.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
