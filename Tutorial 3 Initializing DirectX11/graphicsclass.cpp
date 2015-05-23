@@ -22,6 +22,8 @@ GraphicsClass::GraphicsClass(){
 	m_TextureShader = 0;
 	m_BlueShader = 0;
 	m_GrayscaleShader = 0;
+	m_Model = 0;
+	m_BumpMapShader = 0;
 }
 
 GraphicsClass::GraphicsClass(const GraphicsClass& other){}
@@ -59,6 +61,9 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 
 	m_LightShader = new LightShaderClass;
 	m_LightShader->Initialize(m_D3D->GetDevice(), hwnd);
+
+	m_BumpMapShader = new BumpMapShaderClass;
+	m_BumpMapShader->Initialize(m_D3D->GetDevice(), hwnd);
 
 	//////////////
 	// Textures //
@@ -110,6 +115,9 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 
 	m_AnuncioQuad = new QuadClass;
 	m_AnuncioQuad->Initialize(m_D3D->GetDevice(), 2, 3);
+
+	m_Model = new ModelClass;
+	m_Model->Initialize(m_D3D->GetDevice(), "Cube.txt", L"stone01.gif", L"bump01.gif");
 
 	return  true;
 }
@@ -170,6 +178,19 @@ void GraphicsClass::Shutdown()
 		m_Quad->Shutdown();
 		delete m_Quad;
 		m_Quad = 0;
+	}
+
+	if (m_BumpMapShader){
+		m_BumpMapShader->Shutdown();
+		delete m_BumpMapShader;
+		m_BumpMapShader = 0;
+	}
+
+	if (m_Model)
+	{
+		m_Model->Shutdown();
+		delete m_Model;
+		m_Model = 0;
 	}
 
 	return;
@@ -248,6 +269,9 @@ bool GraphicsClass::Render(){
 	m_AnuncioQuad->SetPosition(D3DXVECTOR3(2.5f, 2, -3.5f));
 	m_AnuncioQuad->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_AnuncioQuad->GetIndexCount(), m_AnuncioQuad->GetMatrix(), viewMatrix, projectionMatrix, m_Anuncio3Texture->GetTexture());
+
+	m_Model->Render(m_D3D->GetDeviceContext());
+	m_BumpMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTextureArray(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
 
 	m_D3D->EndScene();
 	return true;

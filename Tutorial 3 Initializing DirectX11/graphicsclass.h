@@ -18,6 +18,8 @@
 #include "QuadClass.h"
 #include "LightClass.h"
 #include "LightShaderClass.h"
+#include "modelclass.h"
+#include "bumpmapshaderclass.h"
 
 ///////////
 //GLOBALS//
@@ -64,6 +66,8 @@ private:
 	TextureClass* m_Anuncio3Texture;
 	LightShaderClass* m_LightShader;
 	LightClass* m_Light;
+	ModelClass* m_Model;
+	BumpMapShaderClass* m_BumpMapShader;
 };
 
 #endif

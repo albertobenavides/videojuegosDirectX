@@ -78,6 +78,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bumpmapshaderclass.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
     <ClCompile Include="cubeclass.cpp" />
@@ -91,10 +92,12 @@
     <ClCompile Include="QuadClass.cpp" />
     <ClCompile Include="sphereclass.cpp" />
     <ClCompile Include="SystemClass.cpp" />
+    <ClCompile Include="texturearrayclass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bumpmapshaderclass.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
     <ClInclude Include="cubeclass.h" />
@@ -107,11 +110,14 @@
     <ClInclude Include="QuadClass.h" />
     <ClInclude Include="sphereclass.h" />
     <ClInclude Include="systemclass.h" />
+    <ClInclude Include="texturearrayclass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="textureshaderclass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="blue.ps" />
+    <None Include="bumpmap.ps" />
+    <None Include="bumpmap.vs" />
     <None Include="color.ps" />
     <None Include="color.vs" />
     <None Include="grayscale.ps" />
