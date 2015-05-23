@@ -247,7 +247,7 @@ bool ModelClass::LoadModel(char* filename){
 		fin >> m_model[i].tu >> m_model[i].tv;
 		fin >> m_model[i].nx >> m_model[i].ny >> m_model[i].nz;
 
-
+		m_model[i].y *= -1;
 	}
 
 	//Close the model file
@@ -437,9 +437,9 @@ void ModelClass::CalculateNormal(VectorType tangent, VectorType binormal, Vector
 	length = sqrt((normal.x * normal.x) + (normal.y * normal.y) + (normal.z * normal.z));
 
 	// Normalize the normal.
-	normal.x = normal.x / length;
-	normal.y = normal.y / length;
-	normal.z = normal.z / length;
+	normal.x = -normal.x / length;
+	normal.y = -normal.y / length;
+	normal.z = -normal.z / length;
 
 	return;
 
