@@ -113,7 +113,7 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	m_Sphere->Initialize(m_D3D->GetDevice(), positionSphere, stacks, slices, radius, colorSphere);
 
 	m_Cube = new CubeClass;
-	m_Cube->Initialize(m_D3D->GetDevice(), L"puzzle.jpg", 1, 7);
+	m_Cube->Initialize(m_D3D->GetDevice(), L"puzzle.jpg", 1, 1);
 
 	m_Quad = new QuadClass;
 	m_Quad->Initialize(m_D3D->GetDevice(), 10, 15);
@@ -257,6 +257,8 @@ bool GraphicsClass::Render(){
 	m_Cube->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_MetalTexture->GetTexture());
 
+	m_Cube->SetScale(D3DXVECTOR3(0.1f, 2, 0.1f));
+	m_Cube->SetRotation(D3DXVECTOR3(0, 0, 0)); 
 	m_Cube->SetPosition(D3DXVECTOR3(0, 0, -3));
 	m_Cube->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_MetalTexture->GetTexture());
@@ -285,21 +287,37 @@ bool GraphicsClass::Render(){
 	m_D3D->SetRasterizerMode(D3D11_CULL_BACK); // Corregir
 
 	m_Cone->Render(m_D3D->GetDeviceContext());
+	m_Cone->SetPosition(D3DXVECTOR3(0.0f, 1.0f, -1.0f));
+	m_Cone->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_Cone->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cone->GetIndexCount(), m_Cone->GetMatrix(), viewMatrix, projectionMatrix,
 		m_Cube->GetTexture());
 
 	m_Cylinder->Render(m_D3D->GetDeviceContext());
-	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cylinder->GetIndexCount(), m_Cylinder->GetMatrix(), viewMatrix, projectionMatrix,
-		m_Cylinder->GetTexture());
+	m_Cylinder->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_Cylinder->SetRotation(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_Cylinder->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cylinder->GetIndexCount(), m_Cylinder->GetMatrix(), viewMatrix, projectionMatrix, m_Cylinder->GetTexture());
 
 	m_Torus->Render(m_D3D->GetDeviceContext());
-	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Torus->GetIndexCount(), m_Torus->GetMatrix(), viewMatrix, projectionMatrix,
-		m_Torus->GetTexture());
+	m_Torus->SetPosition(D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_Torus->SetRotation(D3DXVECTOR3(0.0f, rotation / 2, 0.0f));
+	m_Torus->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+	//m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Torus->GetIndexCount(), m_Torus->GetMatrix(), viewMatrix, projectionMatrix, m_Torus->GetTexture());
+	m_LightShader->Render(m_D3D->GetDeviceContext(), m_Torus->GetIndexCount(), m_Torus->GetMatrix(), viewMatrix, projectionMatrix,
+		m_Torus->GetTexture(), m_Light->GetDirection(), m_Light->GetAmbientColor(), m_Light->GetDiffuseColor(),
+		m_Camera->GetPosition(), m_Light->GetSpecularColor(), m_Light->GetSpecularPower());
 
 	m_D3D->SetRasterizerMode(D3D11_CULL_FRONT); // Corregir
 
+	m_Cube->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+	m_Cube->SetPosition(D3DXVECTOR3(-2.0f, 1.0f, -2.0f));
+	m_Cube->SetRotation(D3DXVECTOR3(0, -rotation / 5, 0));
+	m_Cube->Render(m_D3D->GetDeviceContext());
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cube->GetIndexCount(), m_Cube->GetMatrix(), viewMatrix, projectionMatrix, m_Texture1->GetTexture());
+
 	m_Model->Render(m_D3D->GetDeviceContext());
-	m_Model->SetPosition(D3DXVECTOR3(0.0f, 1.0f, -4.0f));
+	m_Model->SetPosition(D3DXVECTOR3(1.0f, 1.0f, -4.0f));
 	m_Model->SetRotation(D3DXVECTOR3(3.14159f, rotation, 0.0f));
 	m_Model->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
 	m_BumpMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), m_Model->GetMatrix(), viewMatrix, projectionMatrix, m_Model->GetTextureArray(), m_Light->GetDirection(), m_Light->GetDiffuseColor());

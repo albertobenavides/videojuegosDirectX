@@ -132,8 +132,8 @@ bool CubeClass::InitializeBuffers(ID3D11Device* device){
 	vertices[9].texture = D3DXVECTOR2(0, v);
 	vertices[10].texture = D3DXVECTOR2(u, 0);
 	vertices[11].texture = D3DXVECTOR2(u, v);
-	vertices[9].normal = D3DXVECTOR3(0, -1, 0);
 	vertices[8].normal = D3DXVECTOR3(0, -1, 0);
+	vertices[9].normal = D3DXVECTOR3(0, -1, 0);
 	vertices[10].normal = D3DXVECTOR3(0, -1, 0);
 	vertices[11].normal = D3DXVECTOR3(0, -1, 0);
 	// Rear
@@ -218,11 +218,12 @@ bool CubeClass::InitializeBuffers(ID3D11Device* device){
 
 	//Top
 	indices[30] = 20;
-	indices[31] = 21;
-	indices[32] = 23;
-	indices[33] = 23;
-	indices[34] = 24;
-	indices[35] = 20;
+	indices[31] = 22;
+	indices[32] = 21;
+	indices[33] = 22;
+	indices[34] = 23;
+	indices[35] = 21;
+
 	//Set up the description of the static vertex buffer
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	vertexBufferDesc.ByteWidth = sizeof(VertexType)* m_vertexCount;

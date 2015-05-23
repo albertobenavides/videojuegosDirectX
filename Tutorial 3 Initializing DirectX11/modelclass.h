@@ -56,6 +56,7 @@ public:
 	~ModelClass();
 
 	bool Initialize(ID3D11Device*, char*, WCHAR*, WCHAR*);
+	bool Initialize(ID3D11Device*, WCHAR*, D3DXVECTOR3, int, int, float);
 	void Shutdown();
 	void Render(ID3D11DeviceContext*);
 
