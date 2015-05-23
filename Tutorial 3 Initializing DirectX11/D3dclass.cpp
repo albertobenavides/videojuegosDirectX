@@ -496,3 +496,28 @@ void D3DClass::GetVideoCardInfo(char* cardName, int& memory)
 	memory = m_videoCardMemory;
 	return;
 }
+
+void D3DClass::SetRasterizerMode(D3D11_CULL_MODE CM){
+	D3D11_RASTERIZER_DESC rasterDesc;
+	HRESULT result;
+
+	//Setup the raster description which will determine how and what polygons will be drawn
+	rasterDesc.AntialiasedLineEnable = false;
+	rasterDesc.CullMode = CM;
+	rasterDesc.DepthBias = 0;
+	rasterDesc.DepthBiasClamp = 0.0f;
+	rasterDesc.DepthClipEnable = true;
+	rasterDesc.FillMode = D3D11_FILL_SOLID;
+	rasterDesc.FrontCounterClockwise = false;
+	rasterDesc.MultisampleEnable = false;
+	rasterDesc.ScissorEnable = false;
+	rasterDesc.SlopeScaledDepthBias = 0.0f;
+
+	//Create the rasterizer state from the description we just filled out
+	result = m_device->CreateRasterizerState(&rasterDesc, &m_rasterState);
+	//if(FAILED(result))
+	//return false;
+
+	//Now set the rasterizer state
+	m_deviceContext->RSSetState(m_rasterState);
+}

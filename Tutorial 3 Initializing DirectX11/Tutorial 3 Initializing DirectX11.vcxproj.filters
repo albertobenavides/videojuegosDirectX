@@ -66,6 +66,15 @@
     <ClCompile Include="texturearrayclass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="coneclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cylinderclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="torusclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphicsclass.h">
@@ -114,6 +123,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="texturearrayclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="coneclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cylinderclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="torusclass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

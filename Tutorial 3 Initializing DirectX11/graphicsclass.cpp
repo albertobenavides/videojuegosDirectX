@@ -12,6 +12,11 @@ GraphicsClass::GraphicsClass(){
 	m_Cube = 0;
 	m_Quad = 0;
 	m_AnuncioQuad = 0;
+
+	m_Cube = 0;
+	m_Cylinder = 0;
+	m_Cylinder = 0;
+
 	m_ColorShader = 0;
 	m_Texture1 = 0;
 	m_Texture2 = 0;
@@ -116,6 +121,14 @@ bool GraphicsClass::Initialize(int screenWidth, int screenHeight, HWND hwnd){
 	m_AnuncioQuad = new QuadClass;
 	m_AnuncioQuad->Initialize(m_D3D->GetDevice(), 2, 3);
 
+	m_Cone = new ConeClass;
+	m_Cone->Initialize(m_D3D->GetDevice(), L"seafloor.dds", D3DXVECTOR3(2, 0, 0), 2, 20, 2);
+
+	m_Cylinder = new CylinderClass;
+	m_Cylinder->Initialize(m_D3D->GetDevice(), L"seafloor.dds", D3DXVECTOR3(-2, 0, 0), 2, 20, 2);
+
+	m_Torus = new TorusClass;
+	m_Torus->Initialize(m_D3D->GetDevice(), L"seafloor.dds", D3DXVECTOR3(0, 2, -3), 20, 20, 5, 1);
 	m_Model = new ModelClass;
 	m_Model->Initialize(m_D3D->GetDevice(), "Cube.txt", L"stone01.gif", L"bump01.gif");
 
@@ -268,6 +281,22 @@ bool GraphicsClass::Render(){
 	m_AnuncioQuad->SetPosition(D3DXVECTOR3(2.5f, 2, -3.5f));
 	m_AnuncioQuad->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_AnuncioQuad->GetIndexCount(), m_AnuncioQuad->GetMatrix(), viewMatrix, projectionMatrix, m_Anuncio3Texture->GetTexture());
+
+	m_D3D->SetRasterizerMode(D3D11_CULL_BACK); // Corregir
+
+	m_Cone->Render(m_D3D->GetDeviceContext());
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cone->GetIndexCount(), m_Cone->GetMatrix(), viewMatrix, projectionMatrix,
+		m_Cube->GetTexture());
+
+	m_Cylinder->Render(m_D3D->GetDeviceContext());
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Cylinder->GetIndexCount(), m_Cylinder->GetMatrix(), viewMatrix, projectionMatrix,
+		m_Cylinder->GetTexture());
+
+	m_Torus->Render(m_D3D->GetDeviceContext());
+	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_Torus->GetIndexCount(), m_Torus->GetMatrix(), viewMatrix, projectionMatrix,
+		m_Torus->GetTexture());
+
+	m_D3D->SetRasterizerMode(D3D11_CULL_FRONT); // Corregir
 
 	m_Model->Render(m_D3D->GetDeviceContext());
 	m_Model->SetPosition(D3DXVECTOR3(0.0f, 1.0f, -4.0f));

@@ -12,6 +12,9 @@
 #include "cameraclass.h"
 #include "sphereclass.h"
 #include "cubeclass.h"
+#include "coneclass.h"
+#include "cylinderclass.h"
+#include "torusclass.h"
 #include "colorshaderclass.h"
 #include "textureshaderclass.h"
 #include "textureclass.h"
@@ -50,10 +53,16 @@ private:
 
 	D3DClass* m_D3D;
 	cameraclass* m_Camera;
+	
 	SphereClass* m_Sphere;
 	CubeClass* m_Cube;
 	QuadClass* m_Quad;
 	QuadClass* m_AnuncioQuad;
+
+	ConeClass* m_Cone;
+	CylinderClass* m_Cylinder;
+	TorusClass* m_Torus;
+
 	ColorShaderClass* m_ColorShader;
 	TextureShaderClass* m_TextureShader;
 	TextureShaderClass* m_BlueShader;

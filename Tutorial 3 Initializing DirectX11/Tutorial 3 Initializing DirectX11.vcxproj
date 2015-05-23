@@ -81,7 +81,9 @@
     <ClCompile Include="bumpmapshaderclass.cpp" />
     <ClCompile Include="cameraclass.cpp" />
     <ClCompile Include="colorshaderclass.cpp" />
+    <ClCompile Include="coneclass.cpp" />
     <ClCompile Include="cubeclass.cpp" />
+    <ClCompile Include="cylinderclass.cpp" />
     <ClCompile Include="D3dclass.cpp" />
     <ClCompile Include="graphicsclass.cpp" />
     <ClCompile Include="inputclass.cpp" />
@@ -95,12 +97,15 @@
     <ClCompile Include="texturearrayclass.cpp" />
     <ClCompile Include="TextureClass.cpp" />
     <ClCompile Include="textureshaderclass.cpp" />
+    <ClCompile Include="torusclass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bumpmapshaderclass.h" />
     <ClInclude Include="cameraclass.h" />
     <ClInclude Include="colorshaderclass.h" />
+    <ClInclude Include="coneclass.h" />
     <ClInclude Include="cubeclass.h" />
+    <ClInclude Include="cylinderclass.h" />
     <ClInclude Include="D3dclass.h" />
     <ClInclude Include="graphicsclass.h" />
     <ClInclude Include="inputclass.h" />
@@ -113,6 +118,7 @@
     <ClInclude Include="texturearrayclass.h" />
     <ClInclude Include="TextureClass.h" />
     <ClInclude Include="textureshaderclass.h" />
+    <ClInclude Include="torusclass.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="blue.ps" />
