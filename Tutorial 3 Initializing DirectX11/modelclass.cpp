@@ -445,3 +445,39 @@ void ModelClass::CalculateNormal(VectorType tangent, VectorType binormal, Vector
 
 
 }
+
+void ModelClass::SetPosition(D3DXVECTOR3 position){
+	m_Position = position;
+}
+
+void ModelClass::SetRotation(D3DXVECTOR3 rotation){
+	m_Rotation = rotation;
+}
+
+void ModelClass::SetScale(D3DXVECTOR3 scale){
+	m_Scale = scale;
+}
+
+D3DXVECTOR3 ModelClass::GetPosition(){
+	return m_Position;
+}
+
+D3DXVECTOR3 ModelClass::GetRotation(){
+	return m_Rotation;
+}
+
+D3DXVECTOR3 ModelClass::GetScale(){
+	return m_Scale;
+}
+
+D3DXMATRIX ModelClass::GetMatrix(){
+	D3DXMATRIX FinalM, TranslationM, RotationxM, RotationyM, RotationzM, ScaleM;
+	D3DXMatrixIdentity(&FinalM); //Crea una matrix de identidad.
+	D3DXMatrixTranslation(&TranslationM, m_Position.x, m_Position.y, m_Position.z);
+	D3DXMatrixRotationX(&RotationxM, D3DXToDegree(m_Rotation.x));
+	D3DXMatrixRotationY(&RotationyM, D3DXToDegree(m_Rotation.y));
+	D3DXMatrixRotationZ(&RotationzM, D3DXToDegree(m_Rotation.z));
+	D3DXMatrixScaling(&ScaleM, m_Scale.x, m_Scale.y, m_Scale.z);
+	FinalM = FinalM * ScaleM * RotationxM * RotationyM * RotationzM * TranslationM;
+	return FinalM;
+}

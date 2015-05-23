@@ -77,12 +77,24 @@ private:
 	void CalculateTangentBinormal(TempVertexType, TempVertexType, TempVertexType, VectorType&, VectorType&);
 	void CalculateNormal(VectorType, VectorType, VectorType&);
 
+public:
+	D3DXVECTOR3 GetPosition();
+	D3DXVECTOR3 GetRotation();
+	D3DXVECTOR3 GetScale();
+	D3DXMATRIX GetMatrix();
+
+	void SetPosition(D3DXVECTOR3);
+	void SetRotation(D3DXVECTOR3);
+	void SetScale(D3DXVECTOR3);
+
 private:
 	ID3D11Buffer *m_vertexBuffer, *m_indexBuffer;
 	int m_vertexCount, m_indexCount;
 
 	TextureArrayClass* m_TextureArray;
 	ModelType* m_model;
+
+	D3DXVECTOR3 m_Position, m_Rotation, m_Scale;
 };
 
 #endif

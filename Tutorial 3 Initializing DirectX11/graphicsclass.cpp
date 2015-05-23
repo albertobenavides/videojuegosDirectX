@@ -258,7 +258,6 @@ bool GraphicsClass::Render(){
 
 	m_AnuncioQuad->SetScale(D3DXVECTOR3(1, 0.5f, 1));
 	m_AnuncioQuad->SetPosition(D3DXVECTOR3(-2.5f, 2, -3.5f));
-	m_AnuncioQuad->SetRotation(D3DXVECTOR3(0, 0, 0));
 	m_AnuncioQuad->Render(m_D3D->GetDeviceContext());
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_AnuncioQuad->GetIndexCount(), m_AnuncioQuad->GetMatrix(), viewMatrix, projectionMatrix, m_AnuncioTexture->GetTexture());
 
@@ -271,7 +270,10 @@ bool GraphicsClass::Render(){
 	m_TextureShader->Render(m_D3D->GetDeviceContext(), m_AnuncioQuad->GetIndexCount(), m_AnuncioQuad->GetMatrix(), viewMatrix, projectionMatrix, m_Anuncio3Texture->GetTexture());
 
 	m_Model->Render(m_D3D->GetDeviceContext());
-	m_BumpMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), worldMatrix, viewMatrix, projectionMatrix, m_Model->GetTextureArray(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
+	m_Model->SetPosition(D3DXVECTOR3(0.0f, 1.0f, -4.0f));
+	m_Model->SetRotation(D3DXVECTOR3(3.14159f, rotation, 0.0f));
+	m_Model->SetScale(D3DXVECTOR3(0.5f, 0.5f, 0.5f));
+	m_BumpMapShader->Render(m_D3D->GetDeviceContext(), m_Model->GetIndexCount(), m_Model->GetMatrix(), viewMatrix, projectionMatrix, m_Model->GetTextureArray(), m_Light->GetDirection(), m_Light->GetDiffuseColor());
 
 	m_D3D->EndScene();
 	return true;
