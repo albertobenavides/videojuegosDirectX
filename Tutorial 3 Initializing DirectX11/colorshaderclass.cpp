@@ -22,7 +22,7 @@ bool ColorShaderClass::Initialize(ID3D11Device* device, HWND hwnd)
 
 
 	// Initialize the vertex and pixel shaders.
-	result = InitializeShader(device, hwnd, L"../Tutorial 3 Initializing DirectX11/color.vs", L"../Tutorial 3 Initializing DirectX11/color.ps");
+	result = InitializeShader(device, hwnd, L"color.vs", L"color.ps");
 	if(!result)
 		return false;
 

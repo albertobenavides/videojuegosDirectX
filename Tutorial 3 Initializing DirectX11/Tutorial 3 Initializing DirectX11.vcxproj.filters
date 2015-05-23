@@ -60,6 +60,12 @@
     <ClCompile Include="LightShaderClass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bumpmapshaderclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texturearrayclass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="graphicsclass.h">
@@ -104,6 +110,12 @@
     <ClInclude Include="LightShaderClass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="bumpmapshaderclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texturearrayclass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color.ps">
@@ -128,6 +140,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="light.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bumpmap.ps">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="bumpmap.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
